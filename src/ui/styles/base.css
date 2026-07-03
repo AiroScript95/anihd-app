@@ -1,0 +1,130 @@
+@font-face {
+  font-family: JetBrains;
+  src: url("../fonts/JetBrainsMono.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter;
+  src: url("../fonts/Inter.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: DMMono;
+  src: url("../fonts/DMMono.ttf");
+  font-display: swap;
+}
+
+:root {
+  /* Fonts */
+  --font-ui: Inter, sans-serif;
+  --font-dm: DMMono, monospace;
+  --font-mono: JetBrains, monospace;
+  /* Escala tipográfica */
+  --text-xs: 12px; /* meta, labels, código */
+  --text-sm: 14px; /* corpo, parágrafos */
+  --text-base: 16px; /* texto principal */
+  --text-lg: 18px; /* subtítulos */
+  --text-xl: 24px; /* título header */
+  /* Base */
+  --primary-02: #b0c0cc;
+  --primary-01: #f6f2ef;
+  --primary-03: #363e4f;
+  --primary-04: #d9dfe3;
+  --primary-05: #9aa3b8;
+
+  --accent: #c4935a;
+  --accent2: #c0442c;
+  --accent-hover: #b07d45;
+  --accent-surface: #f9f0e6;
+  --accent-text: #ffffff;
+
+  /* Feedback */
+  --success: #27ae60;
+  --warning: #f39c12;
+  --error: #eb5757;
+  --info: #2d9cdb;
+
+  /* Neutras */
+  --white: #ffffff;
+  --gray-light: #e0e0e0;
+  --gray-text: #5a7184;
+
+  /* Surface */
+  --surface-base: #f6f2ef; /* fundo principal da página */
+  --surface-card: #ffffff; /* fundo de cards */
+  --surface-overlay: #363e4f; /* modais, drawers */
+  --surface-subtle: #d9dfe3; /* fundo de inputs, hover */
+  --surface-muted: #b0c0cc; /* fundo de badges, tags */
+
+  /* Text */
+  --text-primary: #363e4f;
+  --text-secondary: #5a7184;
+  --text-muted: #9aa3b8; /* Era #8ea39d - fica mais neutro */
+  --text-inverted: #f6f2ef;
+  --text-link: #2d9cdb;
+  --text-disabled: #b0c0cc;
+
+  /* Border */
+  --border-default: #d9dfe3;
+  --border-strong: #b0c0cc;
+  --border-focus: #6b7590; /* Era #8ea39d - menos verde */
+  --border-error: #eb5757;
+
+  /* Interactive */
+  --btn-primary-bg: #363e4f;
+  --btn-primary-text: #f6f2ef;
+  --btn-primary-hover: #2a3040;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #363e4f;
+  --btn-secondary-border: #b0c0cc;
+  --btn-secondary-hover: #d9dfe3;
+
+  /* Feedback com surface */
+  --success-surface: #eafaf1;
+  --warning-surface: #fef9e7;
+  --error-surface: #fdeded;
+  --info-surface: #eaf4fb;
+}
+
+body.dark {
+  --accent: #d4a96a;
+  --accent2: #e05535;
+  --accent-hover: #c4935a;
+  --accent-surface: #2b1f0f;
+  /* Surface */
+  --surface-base: #0f1117;
+  --surface-card: #1e2130;
+  --surface-overlay: #1e2130;
+  --surface-subtle: #252836;
+  --surface-muted: #2e3347;
+
+  /* Text */
+  --text-primary: #e8eaf0;
+  --text-secondary: #9aa3b8;
+  --text-muted: #6b7590;
+  --text-inverted: #0f1117;
+  --text-disabled: #4a5268;
+
+  /* Border */
+  --border-default: #2e3347;
+  --border-strong: #3d4460;
+  --border-focus: #6b7590;
+  --border-error: #eb5757;
+
+  /* Interactive */
+  --btn-primary-bg: #e8eaf0;
+  --btn-primary-text: #0f1117;
+  --btn-primary-hover: #c8ccd8;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #e8eaf0;
+  --btn-secondary-border: #3d4460;
+  --btn-secondary-hover: #252836;
+
+  /* Feedback com surface */
+  --success-surface: #0d2b1a;
+  --warning-surface: #2b1f0a;
+  --error-surface: #2b0f0f;
+  --info-surface: #0a1f2b;
+}

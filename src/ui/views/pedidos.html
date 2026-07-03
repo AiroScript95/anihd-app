@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Pedidos — AniHD</title>
+</head>
+
+<body>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const tema = params.get("tema") || "light";
+        if (tema === "dark") document.body.classList.add("dark");
+    </script>
+    <header>
+        <div class="header-left">
+            <h1>Pedidos</h1>
+            <small id="contagem">A carregar...</small>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon" data-tooltip="atualizar" onclick="carregarPedidos()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+                    <path d="M21 3v5h-5" />
+                </svg>
+            </button>
+            <button class="btn-icon" data-tooltip="apagar" onclick="apagarPedidos()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 7l16 0" />
+                    <path d="M10 11l0 6" />
+                    <path d="M14 11l0 6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-pedidos">
+        <aside class="tab-bar" id="tab-bar">
+            <button class="active" onclick="filtrar('todos',this)">Todos</button>
+            <button onclick="filtrar('pendentes',this)">Pendentes</button>
+            <button onclick="filtrar('aprovados',this)">Aprovados</button>
+            <button onclick="filtrar('rejeitados',this)">Rejeitados</button>
+        </aside>
+        <section id="lista"></section>
+    </main>
+
+    <footer>
+        <small>Desenvolvido inteiramente por mim (AiroScript95)</small>
+    </footer>
+    <script src="../js/pedidos.js"></script>
+</body>
+
+</html>

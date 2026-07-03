@@ -1,0 +1,53 @@
+{
+  "name": "anihd-app",
+  "version": "1.0.0",
+  "description": "App para iniciar o servidor AniHD",
+  "author": "AiroScript95",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dev": "nodemon --watch src --ext js --exec electron ."
+  },
+  "build": {
+    "appId": "com.airoscript95.anihd",
+    "productName": "AniHD",
+    "asar": true,
+    "asarUnpack": [
+      "server/**/*"
+    ],
+    "files": [
+      "src/**/*",
+      "server/**/*",
+      "!server/thumbs/**/*",
+      "!server/node_modules/**/*.md",
+      "!server/node_modules/**/*.txt",
+      "!server/node_modules/**/*.map"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/ui/icons/favicon.ico",
+      "compression": "maximum"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "src/ui/icons/favicon.ico",
+      "uninstallerIcon": "src/ui/icons/favicon.ico",
+      "installerHeaderIcon": "src/ui/icons/favicon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AniHD",
+      "license": "server/LICENSE"
+    }
+  },
+  "keywords": [],
+  "license": "GPL-3.0",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3"
+  }
+}
