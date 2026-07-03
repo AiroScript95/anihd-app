@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/style.css" />
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Anime HD">
+  <link rel="apple-touch-icon" href="/assets/icons/android-chrome-192x192.png">
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <title></title>
+</head>
+
+<body>
+  <main class="main-player">
+    <section>
+      <button onclick="history.back()" class="btn-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-logout-2">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
+          <path d="M15 12h-12l3 -3" />
+          <path d="M6 15l-3 -3" />
+        </svg>
+        <span>Sair</span>
+      </button>
+
+      <article class="player-wrapper">
+
+        <!-- VIDEO (largura total) -->
+        <article id="containerVideo" class="containerVideo">
+          <span id="name"></span>
+          <video id="videoplay" ondblclick="fullScreem()">
+            <source src="" type="video/mp4" />
+            Nenhum video disponível!
+          </video>
+          <aside class="controls">
+            <div class="containerProgress">
+              <div class="time">
+                <span id="tempo">--:--:--</span>
+                <!-- <span>|</span> -->
+              </div>
+              <input type="range" id="barraProgresso" value="0" max="100" />
+              <div class="time">
+                <span id="tempoTotal">--:--:--</span>
+              </div>
+            </div>
+            <button id="skip1" onclick="previusDuration()" data-tooltip="Pressione( ctrl + ← )">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-rewind-backward-10">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 9l-3 -3l3 -3" />
+                <path d="M15.997 17.918a6.002 6.002 0 0 0 -.997 -11.918h-11" />
+                <path d="M6 14v6" />
+                <path d="M9 15.5v3a1.5 1.5 0 0 0 3 0v-3a1.5 1.5 0 0 0 -3 0" />
+              </svg>
+            </button>
+            <button class="play" onclick="playOrPause()" data-tooltip="Pressione( K ou Space )">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-player-play">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 4v16l13 -8l-13 -8" />
+              </svg>
+            </button>
+            <button id="skip2" onclick="nextDuration()" data-tooltip="Pressione( ctrl + → )">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-rewind-forward-10">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M17 9l3 -3l-3 -3" />
+                <path d="M8 17.918a5.997 5.997 0 0 1 -5 -5.918a6 6 0 0 1 6 -6h11" />
+                <path d="M12 14v6" />
+                <path d="M15 15.5v3a1.5 1.5 0 0 0 3 0v-3a1.5 1.5 0 0 0 -3 0" />
+              </svg>
+            </button>
+            <a href="" id="btn-download" class="btn-download">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                <path d="M7 11l5 5l5 -5" />
+                <path d="M12 4l0 12" />
+              </svg>
+            </a>
+            <div class="containerVolume">
+              <button class="mute" onclick="muted()" data-tooltip="Pressione( M )">
+                <span id="icoVolume">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-volume">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M15 8a5 5 0 0 1 0 8" />
+                    <path d="M17.7 5a9 9 0 0 1 0 14" />
+                    <path
+                      d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+                  </svg>
+                </span>
+              </button>
+              <input type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+            </div>
+            <button class="fullScreen" id="fullscreem" onclick="fullScreem()" data-tooltip="Pressione( F )">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-maximize">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
+                <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+                <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+                <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
+              </svg>
+            </button>
+          </aside>
+
+          <button class="nextEp" id="nextEp">
+            <span>Próximo episódio</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+              <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+            </svg>
+          </button>
+          <button class="prevEp" id="prevEp">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+              <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
+            </svg>
+            <span>Episódio anterior</span>
+          </button>
+          <div id="loader" class="loader"></div>
+          <div id="play-status" class="play-status" onclick="playOrPause()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-player-play">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M7 4v16l13 -8l-13 -8" />
+            </svg>
+          </div>
+        </article>
+
+        <!-- BLOCO ABAIXO DO VIDEO: img | sinopse + lista -->
+        <div class="anime-bar" id="animeInfo">
+          <!-- Coluna direita: título + sinopse + lista -->
+          <div class="anime-tabs">
+            <div class="ep-nav-row">
+              <div class="ep-nav-card" id="prevCard" style="display:none">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                <div>
+                  <span class="ep-nav-label">Episódio anterior</span>
+                  <span class="ep-nav-num"></span>
+                  <span class="ep-nav-nome"></span>
+                </div>
+              </div>
+              <div class="ep-nav-card ep-nav-card--next" id="nextCard" style="display:none">
+                <div>
+                  <span class="ep-nav-label">Próximo episódio</span>
+                  <span class="ep-nav-num"></span>
+                  <span class="ep-nav-nome"></span>
+                </div>
+                <svg viewBox="0 0 24 24">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </article>
+    </section>
+  </main>
+  <script src="/js/pages/player.js" defer></script>
+  <script src="/js/utils/global.js" defer></script>
+  <script src="/js/utils/video.js" defer></script>
+</body>
+
+</html>

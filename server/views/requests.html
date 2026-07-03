@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/style.css" />
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Anime HD">
+  <link rel="apple-touch-icon" href="/assets/icons/android-chrome-192x192.png">
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <title></title>
+</head>
+
+<body>
+  <aside class="modal-overlay open" id="termos-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" />
+            <path d="M15 19l2 2l4 -4" />
+          </svg>
+        </div>
+        <div>
+          <p class="modal-header-title">Termos de utilização</p>
+          <p class="modal-header-sub">Lê antes de continuar</p>
+        </div>
+      </div>
+      <div class="termos-lista" id="termos-lista"></div>
+      <button class="btn-aceitar" id="btn-aceitar">
+        Concordo com os termos
+      </button>
+    </div>
+  </aside>
+  <header id="header"></header>
+  <main class="pedidos">
+    <section class="panel-form">
+      <form action="/feedback">
+        <label>
+          <span>Nome do anime:</span>
+          <input type="text" name="nome" id="inp_anime" placeholder="Ex: Naruto, One Piece, Bleach..." />
+          <small>Escreve o nome do anime que queres ver na plataforma, não o teu nome.</small>
+        </label>
+        <label>
+          <span>Motivos:</span>
+          <textarea name="desc" id="txt_anime" placeholder="Porque adicionar?"></textarea>
+        </label>
+        <button type="submit">enviar</button>
+      </form>
+    </section>
+    <section id="dataPedidos"></section>
+  </main>
+  <footer></footer>
+  <script src="/js/utils/global.js" defer></script>
+  <script src="/js/pages/requests.js" defer></script>
+</body>
+
+</html>

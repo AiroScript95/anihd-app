@@ -1,0 +1,19 @@
+/* Components */
+@import "components/button.css";
+@import "components/card.css";
+@import "components/header-title.css";
+@import "components/tabs.css";
+/* Pages */
+@import "pages/layout-anime.css";
+@import "pages/layout-catalog.css";
+@import "pages/layout-home.css";
+@import "pages/layout-player.css";
+@import "pages/layout-releases.css";
+@import "pages/layout-requests.css";
+@import "pages/layout-search.css";
+@import "pages/layout-users.css";
+/* Utils */
+@import "utils/base.css";
+@import "utils/media-query.css";
+@import "utils/root.css";
+@import "utils/termos.css";

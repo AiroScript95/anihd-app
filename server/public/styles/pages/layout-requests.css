@@ -1,0 +1,126 @@
+.pedidos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: start;
+}
+
+.panel-form {
+  background: var(--surface-card);
+  border: 0.5px solid var(--border-default);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.panel-form h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.panel-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.panel-form label small {
+  font-size: 12px;
+  color: var(--text-disabled);
+  margin-top: 4px;
+  display: block;
+}
+
+.panel-form span {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.panel-form input,
+.panel-form textarea {
+  background: var(--surface-subtle);
+  border: 0.5px solid var(--border-default);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  font-family: var(--font-ui);
+  resize: vertical;
+}
+
+.panel-form input::placeholder,
+.panel-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.panel-form input:focus,
+.panel-form textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.panel-form textarea {
+  min-height: 100px;
+}
+
+.panel-form button[type="submit"] {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-size: 14px;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.panel-form button[type="submit"]:hover {
+  background: var(--btn-primary-hover);
+}
+
+#dataPedidos article {
+  background: var(--surface-card);
+  border: 0.5px solid var(--border-default);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+#dataPedidos article h2 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+#dataPedidos article p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+#dataPedidos article span {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 0.5rem;
+  background: var(--info-surface);
+  color: var(--info);
+}
+
+#dataPedidos article span.rejeitado {
+  background: var(--error-surface);
+  color: var(--error);
+}
+#dataPedidos article span.aprovado {
+  background: var(--success-surface);
+  color: var(--success);
+}

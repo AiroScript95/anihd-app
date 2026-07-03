@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <!-- fundo -->
+  <rect width="200" height="300" rx="6" fill="#363e4f"/>
+  <!-- borda sutil -->
+  <rect width="200" height="300" rx="6" fill="none" stroke="#d9dfe3" stroke-width="0.5" stroke-opacity="0.15"/>
+  <!-- padrão de fundo sutil -->
+  <line x1="0" y1="60" x2="200" y2="60" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="0" y1="120" x2="200" y2="120" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="0" y1="180" x2="200" y2="180" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="0" y1="240" x2="200" y2="240" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="50" y1="0" x2="50" y2="300" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="100" y1="0" x2="100" y2="300" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <line x1="150" y1="0" x2="150" y2="300" stroke="#d9dfe3" stroke-width="0.3" stroke-opacity="0.08"/>
+  <!-- círculo de fundo do ícone -->
+  <circle cx="100" cy="142" r="36" fill="#8ea39d" fill-opacity="0.1"/>
+  <circle cx="100" cy="142" r="36" stroke="#8ea39d" stroke-width="0.5" stroke-opacity="0.25"/>
+  <!-- ícone tv — escalado e centrado em 100,142 -->
+  <g transform="translate(88, 130)" stroke="#b0c0cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2l0 -9" />
+    <path d="M16 3l-4 4l-4 -4" />
+  </g>
+  <!-- label em baixo -->
+  <text x="100" y="210" text-anchor="middle" font-family="monospace" font-size="9" fill="#8ea39d" fill-opacity="0.6" letter-spacing="2">SEM CAPA</text>
+  <!-- acento âmbar — linha decorativa no topo -->
+  <!-- <rect x="0" y="0" width="200" height="3" rx="3" fill="#c4935a" fill-opacity="0.7"/> -->
+</svg>

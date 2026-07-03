@@ -1,0 +1,21 @@
+{
+	"name": "Anime HD",
+	"short_name": "AniHD",
+	"description": "Sua coleção de animes em HD, direto da sua rede local",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"theme_color": "#0f1117",
+	"background_color": "#0f1117",
+	"icons": [{
+			"src": "/assets/icons/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		}, {
+			"src": "/assets/icons/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}],
+	"categories": ["entertainment", "video"]
+}

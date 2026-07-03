@@ -1,0 +1,392 @@
+.anime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ── HERO ─────────────────────────────────── */
+.hero-anime {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 6;
+  overflow: hidden;
+  background: var(--surface-subtle);
+}
+
+.hero-anime-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  filter: blur(3px) brightness(0.3);
+  transform: scale(1.06);
+  transition: opacity 0.6s;
+}
+
+.hero-anime-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--surface-base) 100%
+  );
+}
+
+.hero-anime-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem 2.5rem;
+  gap: 1.5rem;
+}
+
+/* poster */
+.hero-anime-poster {
+  width: 160px;
+  aspect-ratio: 2 / 3;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-anime-poster svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.2;
+}
+
+.hero-anime-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* info */
+.hero-anime-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-anime-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  /* text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65); */
+}
+
+.hero-anime-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.hero-anime-sinopse {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-height: 10rem;
+  margin: 0;
+  display: -webkit-box;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+/* ── BADGES ───────────────────────────────── */
+.badge {
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.badge-cat {
+  /* background: rgba(196, 147, 90, 0.18); */
+  background: var(--accent-surface);
+  color: var(--accent);
+  border: 1px solid rgba(196, 147, 90, 0.32);
+}
+
+.badge-year {
+  background: rgba(176, 192, 204, 0.267);
+  color: var(--text-secondary);
+  border: 1px solid rgba(176, 192, 204, 0.425);
+}
+
+.badge-status-ok {
+  background: var(--success-surface);
+  color: var(--success);
+  border: 1px solid rgba(39, 174, 96, 0.25);
+}
+
+.badge-status-soon {
+  background: var(--warning-surface);
+  color: var(--warning);
+  border: 1px solid rgba(243, 156, 18, 0.25);
+}
+
+/* ── TABS ─────────────────────────────────── */
+.tabs-bar {
+  width: 100%;
+  padding: 1.25rem 2.5rem 0;
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border-default);
+  overflow-x: auto;
+  box-sizing: border-box;
+  /* esconde a scrollbar mas mantém funcional */
+  scrollbar-width: none;
+}
+.tabs-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  border-bottom: 1px solid;
+  border-bottom-color: var(--accent);
+  /* margin-bottom: -1px; */
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+  white-space: nowrap;
+}
+
+/* ── EPISODES ─────────────────────────────── */
+.episodes-section {
+  padding: 1.5rem 2.5rem 3rem;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.eps-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.eps-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+/* ── EP-CARD ──────────────────────────────── */
+.ep-card {
+  background: var(--surface-card);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.18s;
+}
+
+.ep-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  /* box-shadow: 0 8px 20px #00000018; */
+}
+
+/* thumbnail */
+.ep-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface-subtle);
+}
+
+.ep-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* fallback svg quando a imagem falha */
+.ep-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-subtle);
+}
+
+.ep-thumb-fallback svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.2;
+  opacity: 0.5;
+}
+
+/* overlay + botão play */
+.ep-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.ep-card:hover .ep-overlay {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.ep-play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #c0442c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.75);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  flex-shrink: 0;
+}
+
+.ep-card:hover .ep-play-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ep-play-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #ffffff;
+  /* pequeno offset óptico para o triângulo parecer centrado */
+  margin-left: 2px;
+}
+
+/* badge do número */
+.ep-num-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(0, 0, 0, 0.58);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* body abaixo do thumb */
+.ep-body {
+  padding: 8px 10px 10px;
+}
+
+.ep-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+/* ── ESTADOS ──────────────────────────────── */
+.loading-wrap {
+  grid-column: 1 / -1;
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--border-default);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-wrap {
+  grid-column: 1 / -1;
+  padding: 4rem 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.error-wrap p {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.empty-season {
+  grid-column: 1 / -1;
+  padding: 3rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.empty-season svg {
+  width: 38px;
+  height: 38px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.2;
+  margin-bottom: 0.75rem;
+  display: block;
+  margin-inline: auto;
+  opacity: 0.5;
+}

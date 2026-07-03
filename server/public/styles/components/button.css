@@ -1,0 +1,35 @@
+.btn-topo {
+  position: fixed;
+  bottom: 4rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    background 200ms ease;
+  z-index: 99;
+}
+
+.btn-topo.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-topo:hover {
+  background: var(--surface-overlay);
+  color: var(--text-primary);
+}
+
+.btn-topo:hover svg {
+  fill: var(--primary-01);
+}

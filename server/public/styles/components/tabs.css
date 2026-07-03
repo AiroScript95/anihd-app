@@ -1,0 +1,42 @@
+
+.tab-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.tab-bar .tab-btn {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  text-align: center;
+  font-family: var(--font-mono);
+  padding: 0.25rem;
+  border-radius: 8px;
+  background-color: transparent;
+  outline: 3px solid transparent;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    outline-color 300ms ease;
+}
+
+.tab-bar .tab-btn:hover {
+  outline-color: #0b131d65;
+  border-color: transparent;
+}
+
+.dark .tab-bar .tab-btn:hover {
+  outline-color: #f5f5f52b;
+  border-color: transparent;
+}
+
+.tab-bar .tab-btn.active {
+  background-color: var(--btn-primary-bg);
+  color: var(--text-inverted);
+}

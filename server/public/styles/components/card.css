@@ -1,0 +1,145 @@
+.card-anime-img {
+    position: relative;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+    border: 2px solid transparent;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .card-anime-img:hover {
+    transform: scale(1.02);
+    /* border-color: rgba(196, 147, 90, 0.4); */
+    border-color: var(--accent);
+  }
+
+  .card-anime-img.card-sem-episodios {
+    cursor: default;
+    pointer-events: none;
+    filter: brightness(60%);
+  }
+
+  .card-anime-img.card-sem-episodios img {
+    filter: grayscale(70%);
+  }
+
+  .card-anime-img > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 300ms ease;
+  }
+
+  .card-anime-img:hover > img {
+    transform: scale(1.05);
+  }
+
+  /* gradiente inferior */
+  .card-anime-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.93) 0%,
+      rgba(0, 0, 0, 0.25) 50%,
+      transparent 72%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* badge de status */
+  .card-cat-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.55);
+    border: 0.5px solid transparent;
+    color: #b0c0cc;
+  }
+
+  .badge-download {
+    background: rgba(19, 104, 77, 0.349);
+    color: #5DCAA5;
+    border: 0.5px solid rgba(29, 158, 117, 0.35);
+  }
+
+  .badge-soon {
+    background: rgba(196, 147, 90, 0.2);
+    color: #c4935a;
+    border: 0.5px solid rgba(196, 147, 90, 0.3);
+  }
+  .badge-removing {
+    background: rgba(210, 70, 70, 0.18);
+    color: #e05555;
+    border: 0.5px solid rgba(210, 70, 70, 0.35);
+  }
+
+  /* painel inferior */
+  .card-anime-img .card-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 8px 8px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-anime-img .card-bottom h3 {
+    font-size: 11px;
+    font-weight: 500;
+    color: #f6f2ef;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  /* categorias */
+  .card-anime-img .card-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .card-anime-img .card-cats span {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.42);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+  }
+
+  /* ano */
+  .card-anime-img .card-meta {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: var(--font-mono);
+  }
+
+  /* ── card no carrossel ── */
+  .card-carrossel {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    width: 14rem;
+    height: 22rem;
+    aspect-ratio: unset;
+  }
