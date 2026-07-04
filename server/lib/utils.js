@@ -1,7 +1,7 @@
 import os from "os";
-import { access, mkdir, readFile, writeFile } from "fs/promises";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
+import { access, mkdir } from "fs/promises";
+import { join } from "path";
+import { adicionarPedido } from "./pedidos.js";
 
 export async function criarPastaBanners() {
   const bannersPath = join(process.cwd(), "banners");
@@ -31,12 +31,5 @@ export function getLocalIP() {
 }
 
 export async function salvarJson(nome, desc) {
-  let data = [];
-  const status = "analisando...";
-  try {
-    const conteudo = await readFile("database/database.json", "utf-8");
-    data = JSON.parse(conteudo);
-  } catch {}
-  data.push({ Anime: nome, Descricao: desc, Status: status });
-  await writeFile("database/database.json", JSON.stringify(data, null, 2));
+  return adicionarPedido("database/database.json", { nome, desc });
 }

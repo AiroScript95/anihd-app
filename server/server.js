@@ -16,8 +16,9 @@ import { adicionarThumbQueue } from "./lib/thumbs.js";
 import { streamVideo } from "./lib/stream.js";
 import { downloadVideo } from "./lib/download.js";
 import { urlJoin, lerInfo, imgDefault } from "./lib/anime.js";
-import { getLocalIP, salvarJson} from "./lib/utils.js";
+import { getLocalIP, salvarJson } from "./lib/utils.js";
 import { getReleases } from "./lib/releases.js";
+import { lerPedidos } from "./lib/pedidos.js";
 // import { iniciarBanco, criarUsuario, listarUsuarios} from "./lib/users.js";
 
 /* ===================[ VARIAVEIS (VARIABLES) ]======================= */
@@ -31,6 +32,7 @@ const videoPath = config.path;
 const bannerCache = new Map();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(viewsPath));
 app.use(express.static("public"));
 app.use("/thumbs", express.static("thumbs"));
@@ -53,8 +55,15 @@ app.get("/requests", (req, res) => {
 });
 app.get("/feedback", async (req, res) => {
   const { nome, desc } = req.query;
-  await salvarJson(nome, desc);
-  res.redirect("/requests");
+  const resultado = await salvarJson(nome, desc);
+  const status = resultado.ok ? "enviado" : resultado.codigo;
+  res.redirect(`/requests?status=${encodeURIComponent(status)}`);
+});
+app.post("/feedback", async (req, res) => {
+  const { nome, desc } = req.body;
+  const resultado = await salvarJson(nome, desc);
+  const status = resultado.ok ? "enviado" : resultado.codigo;
+  res.redirect(`/requests?status=${encodeURIComponent(status)}`);
 });
 app.get("/anime/:nome", (req, res) => {
   res.sendFile("anime.html", { root: viewsPath });
@@ -76,13 +85,7 @@ app.get("/perfil", (req, res) => {
 });
 /* ===================[ APIS NODE ]======================= */
 app.get("/get-pedidos", async (req, res) => {
-  try {
-    const conteudo = await fs.readFile("database/database.json", "utf-8");
-    const data = JSON.parse(conteudo);
-    res.json(data);
-  } catch {
-    res.json([]);
-  }
+  res.json(await lerPedidos("database/database.json"));
 });
 app.get("/videos", async (req, res) => {
   const chave = "videos:all";

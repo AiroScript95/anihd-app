@@ -50,15 +50,16 @@
   <header id="header"></header>
   <main class="pedidos">
     <section class="panel-form">
-      <form action="/feedback">
+      <p class="pedido-feedback" id="pedido-feedback" aria-live="polite"></p>
+      <form action="/feedback" method="post">
         <label>
           <span>Nome do anime:</span>
-          <input type="text" name="nome" id="inp_anime" placeholder="Ex: Naruto, One Piece, Bleach..." />
+          <input type="text" name="nome" id="inp_anime" placeholder="Ex: Naruto, One Piece, Bleach..." maxlength="120" required />
           <small>Escreve o nome do anime que queres ver na plataforma, não o teu nome.</small>
         </label>
         <label>
           <span>Motivos:</span>
-          <textarea name="desc" id="txt_anime" placeholder="Porque adicionar?"></textarea>
+          <textarea name="desc" id="txt_anime" placeholder="Porque adicionar?" maxlength="1000"></textarea>
         </label>
         <button type="submit">enviar</button>
       </form>
