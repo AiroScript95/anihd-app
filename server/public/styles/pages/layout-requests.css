@@ -22,6 +22,26 @@
   margin-bottom: 1.25rem;
 }
 
+.pedido-feedback {
+  display: none;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--success-surface);
+  color: var(--success);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pedido-feedback:not(:empty) {
+  display: block;
+}
+
+.pedido-feedback.is-error {
+  background: var(--error-surface);
+  color: var(--error);
+}
+
 .panel-form label {
   display: flex;
   flex-direction: column;
@@ -123,4 +143,9 @@
 #dataPedidos article span.aprovado {
   background: var(--success-surface);
   color: var(--success);
+}
+
+#dataPedidos .empty-state {
+  color: var(--text-secondary);
+  font-size: 13px;
 }

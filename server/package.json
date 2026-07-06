@@ -1,10 +1,11 @@
 {
   "name": "project--anihd",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Servidor de streaming de animes em rede local",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --env-file .env server.js",
+    "test": "node --test",
     "start": "pm2 start ecosystem.config.cjs",
     "stop": "pm2 stop anihd",
     "rst": "pm2 restart anihd",

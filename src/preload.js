@@ -23,10 +23,14 @@ contextBridge.exposeInMainWorld("api", {
 
   // Info.json
   gerarInfo: () => ipcRenderer.invoke("gerar-info-json"),
-
+  editarInfoJson: (caminho) => ipcRenderer.invoke("editar-info-json", caminho),
+  listarInfoJson: () => ipcRenderer.invoke("listar-info-json"),
+  abrirInfoJson: (tema) => ipcRenderer.invoke("abrir-info-json", tema),
+  onAlertInfoJson: (i) => ipcRenderer.on("alert-info", (_, data) => i(data)),
+  apagarInfoJson: (caminho) => ipcRenderer.invoke("apagar-info-json", caminho),
   // Info for Pasta
   infoPasta: () => ipcRenderer.invoke("info-pasta"),
-  onAlertInfo: (i) => ipcRenderer.on("alert-info", (_, data) => i(data)),
+
   // Banners e links
   abrirBanners: () => ipcRenderer.invoke("get-banners"),
   abrirLink: (url) => ipcRenderer.invoke("abrir-link", url),

@@ -23,7 +23,7 @@ async function apagarPedidos() {
   const ok = await confirmarHTML(texto);
   if (!ok) return;
   else await window.api.apagarPedidos();
-  carregarPedidos()
+  carregarPedidos();
 }
 function confirmarHTML(mensagem) {
   return new Promise((resolve) => {
@@ -102,6 +102,7 @@ function filtrar(status, btn) {
 async function carregarPedidos() {
   const lista = document.getElementById("lista");
   const contagem = document.getElementById("contagem");
+  document.getElementById("btn-apagar").disabled = false;
   lista.innerHTML = "";
 
   const todosBrutos = await window.api.getPedidos();
@@ -124,19 +125,17 @@ async function carregarPedidos() {
   });
 
   if (pedidos.length === 0) {
+    document.getElementById("btn-apagar").disabled = true;
     contagem.textContent = "Nenhum pedido";
-    lista.innerHTML = `
+    lista.innerHTML = /* html */ `
     <div class="empty">
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-text">
+    <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-off">
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-    <path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2" />
-    <path d="M9 12h6" />
-    <path d="M9 16h6" />
-    </svg>
-    <p>Sem pedidos por agora</p>
+    <path d="M5.575 5.597a2 2 0 0 0 -.575 1.403v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2m0 -4v-8a2 2 0 0 0 -2 -2h-2" />
+    <path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 1 1 0 4h-2" />
+    <path d="M3 3l18 18" />
+  </svg>
+    <p>Nenhum pedido enconrtado</p>
     </div>`;
     return;
   }

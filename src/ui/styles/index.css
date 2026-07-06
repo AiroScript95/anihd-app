@@ -174,7 +174,9 @@ footer small {
 #btn-info-json:disabled,
 #btn-banners:disabled,
 #btn-pedidos:disabled,
-#btn-reset:disabled {
+#btn-reset:disabled ,
+#btn-apagar:disabled,
+#btn-add-info:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -265,7 +267,10 @@ button:active {
   top: 3.5rem;
   opacity: 1;
   visibility: visible;
-  transition-delay: 1.5s;
+  transition-delay: 1s;
+}
+.btn-icon:active::after{
+  visibility: hidden;
 }
 
 .btn-secondary {
@@ -702,7 +707,6 @@ button:active {
   transition: color 0.2s ease;
 }
 
-/* Destaque sutil ao passar o mouse na linha de informação */
 .modal-info ul li:hover svg {
   color: var(--accent);
 }
@@ -993,6 +997,6 @@ button:active {
    Mais Opções(modal de opções extras)
 ════════════════════════════════════════ */
 .modal-mais {
-  max-width: 280px;
+  max-width: 320px;
   height: 300px;
 }

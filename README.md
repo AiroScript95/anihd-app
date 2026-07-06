@@ -11,6 +11,8 @@ App desktop para iniciar e gerir o teu servidor de streaming de animes em rede l
 - 📋 Mostra o endereço de acesso local e em rede
 - 🗂️ Permite redefinir a pasta de vídeos a qualquer momento
 - 🖼️ Acesso direto à pasta de banners
+- 📋 Janela dedicada para gerir pedidos de novos animes
+- 📝 Janela dedicada para editar e organizar info.json de cada anime
 
 ## 💻 Plataformas suportadas
 
@@ -148,6 +150,19 @@ npm run dev
 # Gera o instalador
 npm run dist
 ```
+## 📷 Visualisação
+### Loading
+![screenshot](docs/screenshot.png)
+### Seleção de Pasta
+![screenshot1](docs/screenshot1.png)
+### Servidor ligado
+![screenshot2](docs/screenshot2.png)
+### Geração de Thumbnails
+![screenshot3](docs/screenshot3.png)
+### Lista de animes com info
+![screenshot4](docs/screenshot4.png)
+### Pedidos
+![screenshot5](docs/screenshot5.png)
 
 ## 📜 Licença
 

@@ -17,11 +17,13 @@ const os = require("os");
 // ─── Estado global ────────────────────────────────────────────────────────────
 let mainWindow;
 let janelaPedidos;
+let janelaInfoJson;
 let serverProcess;
 let tray;
 let forcarFecho = false;
 let fechoIntesional = false;
-
+let appConfigPath;
+const gotTheLock = app.requestSingleInstanceLock();
 // ─── Caminhos ─────────────────────────────────────────────────────────────────
 const isDev = !app.isPackaged;
 const serverPath = isDev
@@ -29,8 +31,18 @@ const serverPath = isDev
   : path.join(process.resourcesPath, "app.asar.unpacked", "server");
 const configPath = path.join(serverPath, "config.json");
 const pedidosPath = path.join(serverPath, "/database/database.json");
-
+const bannersPath = path.join(serverPath, "banners");
 // ─── Utilitários ──────────────────────────────────────────────────────────────
+function lerAppConfig() {
+  try {
+    return JSON.parse(fsSync.readFileSync(appConfigPath, "utf-8"));
+  } catch {
+    return {};
+  }
+}
+function guardarAppConfig(data) {
+  fsSync.writeFileSync(appConfigPath, JSON.stringify(data, null, 2));
+}
 function lerConfig() {
   try {
     return JSON.parse(fsSync.readFileSync(configPath, "utf-8"));
@@ -138,6 +150,29 @@ function contarItens(dirPath) {
 
   return { pastas, arquivos };
 }
+function listarInfoJson() {
+  let lista = [];
+  const config = lerConfig();
+  try {
+    const item = fsSync.readdirSync(config.path, { withFileTypes: true });
+    item.sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true }),
+    );
+    const pastas = item.filter((i) => i.isDirectory());
+    for (const pasta of pastas) {
+      const destino = path.join(config.path, pasta.name, "info.json");
+      if (fsSync.existsSync(destino)) {
+        lista.push(destino);
+      }
+    }
+  } catch (error) {
+    console.log(`erro: ${error.message}`);
+  }
+  return lista;
+}
+function openBanner(banners) {
+  if (fsSync.existsSync(banners)) shell.openPath(banners);
+}
 // ─── Janelas ──────────────────────────────────────────────────────────────────
 function criarJanela() {
   mainWindow = new BrowserWindow({
@@ -153,10 +188,29 @@ function criarJanela() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (
+      input.key === "F12" ||
+      (input.control && input.shift && input.key.toLowerCase() === "i")
+    ) {
+      event.preventDefault();
+    }
+  });
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (
+      input.key === "F5" ||
+      (input.control && input.key.toLowerCase() === "r")
+    ) {
+      event.preventDefault();
+    }
+  });
+  mainWindow.webContents.setVisualZoomLevelLimits(1, 1);
+
   mainWindow.on("close", (e) => {
     if (!forcarFecho) {
       e.preventDefault();
       mainWindow.hide();
+      avisarPrimeiraMinimizacao();
     }
   });
   mainWindow.once("ready-to-show", () => mainWindow.show());
@@ -165,7 +219,7 @@ function criarJanela() {
 function criarJanelaPedidos(tema) {
   janelaPedidos = new BrowserWindow({
     width: 900,
-    height: 600,
+    height: 700,
     resizable: true,
     fullscreenable: false,
     autoHideMenuBar: true,
@@ -176,9 +230,32 @@ function criarJanelaPedidos(tema) {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+  janelaPedidos.once("ready-to-show", () => janelaPedidos.show());
   janelaPedidos.loadFile(path.join(__dirname, "ui/views/pedidos.html"), {
     query: { tema },
   });
+}
+function criarJanelaInfoJson(tema) {
+  janelaInfoJson = new BrowserWindow({
+    width: 900,
+    height: 700,
+    resizable: true,
+    fullscreenable: false,
+    autoHideMenuBar: true,
+    minimizable: false,
+    parent: mainWindow,
+    modal: true,
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  janelaInfoJson.once("ready-to-show", () => janelaInfoJson.show());
+  janelaInfoJson.loadFile(
+    path.join(__dirname, "ui/views/lista_info_json.html"),
+    {
+      query: { tema },
+    },
+  );
 }
 // ─── Tray ─────────────────────────────────────────────────────────────────────
 function criarTray() {
@@ -194,6 +271,10 @@ function criarTray() {
         mainWindow.show();
         mainWindow.reload();
       },
+    },
+    {
+      label: "Abrir Banners",
+      click: () => openBanner(bannersPath),
     },
     {
       label: "Fechar",
@@ -215,6 +296,7 @@ function iniciarServidor() {
     console.log("Pasta de vídeos não configurada ou não existe.");
     return;
   }
+
   fechoIntesional = false;
   serverProcess = spawn(
     process.execPath,
@@ -231,7 +313,6 @@ function iniciarServidor() {
         "alert-crash",
         `Servidor encerrou com erro: ${dados}`,
       );
-      console.log(dados);
     }
     fechoIntesional = false;
   });
@@ -243,7 +324,18 @@ function spawnarProcesso(ficheiro) {
     encoding: "utf8",
   });
 }
+function avisarPrimeiraMinimizacao() {
+  const config = lerAppConfig();
+  if (config && !config.avisoTrayMostrado) {
+    new Notification({
+      title: "AniHD",
+      body: "O app continua a correr na bandeja. Clica no ícone para reabrir.",
+      icon: path.join(__dirname, "ui/icons/favicon48.ico"),
+    }).show();
 
+    guardarAppConfig({ ...config, avisoTrayMostrado: true });
+  }
+}
 // ─── IPC ──────────────────────────────────────────────────────────────────────
 
 // Config
@@ -313,7 +405,7 @@ ipcMain.handle("gerar-info-json", () => {
         const l = linha.trim();
         if (!l) continue;
         if (l.startsWith("ALERT-INFO|")) {
-          mainWindow.webContents.send(
+          janelaInfoJson.webContents.send(
             "alert-info",
             l.slice(l.indexOf("|") + 1),
           );
@@ -328,10 +420,29 @@ ipcMain.handle("gerar-info-json", () => {
     });
   });
 });
+ipcMain.handle("listar-info-json", () => {
+  return listarInfoJson().map((destino) => ({
+    nome: path.basename(path.dirname(destino)), // nome do anime
+    caminho: destino, // rota real, usada só internamente
+  }));
+});
+ipcMain.handle("editar-info-json", (_, caminho) => {
+  if (fsSync.existsSync(caminho)) {
+    shell.openPath(caminho);
+  }
+});
+ipcMain.handle("abrir-info-json", (_, tema) => {
+  criarJanelaInfoJson(tema);
+  return true;
+});
+ipcMain.handle("apagar-info-json", (_, caminho) => {
+  if (fsSync.existsSync(caminho)) {
+    fsSync.unlinkSync(caminho);
+  }
+});
 // Banners e links
 ipcMain.handle("get-banners", () => {
-  const bannersPath = path.join(serverPath, "banners");
-  if (fsSync.existsSync(bannersPath)) shell.openPath(bannersPath);
+  openBanner(bannersPath);
 });
 ipcMain.handle("abrir-link", (_, url) => shell.openExternal(url));
 // Pedidos
@@ -377,6 +488,7 @@ ipcMain.handle("selecionar-pasta", async () => {
     if (!caminho || !fsSync.existsSync(caminho)) return null;
     guardarConfig({ titulo: "AniHD", path: caminho });
     return caminho;
+    9;
   }
   return null;
 });
@@ -407,9 +519,21 @@ ipcMain.handle("info-pasta", () => {
   };
 });
 // ─── App ──────────────────────────────────────────────────────────────────────
-app.whenReady().then(() => {
-  app.setAppUserModelId("com.airoscript95.anihd");
-  criarJanela();
-  criarTray();
-  validarConfig();
-});
+Menu.setApplicationMenu(null);
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on("second-instance", () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+  app.whenReady().then(() => {
+    appConfigPath = path.join(app.getPath("userData"), "app-config.json");
+    app.setAppUserModelId("com.airoscript95.anihd");
+    criarJanela();
+    criarTray();
+    validarConfig();
+  });
+}

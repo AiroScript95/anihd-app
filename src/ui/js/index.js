@@ -75,25 +75,6 @@ async function copiar(texto) {
     alertCopy.classList.add("hide");
   }, 2000);
 }
-function gerarInfoJson() {
-  const alert = document.createElement("div");
-  alert.classList.add("alert", "alert-info");
-  alert.innerHTML = /* html */ `
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-info">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M11 14h1v4h1" />
-	<path d="M12 11h.01" />
-</svg>
-  <span>Gerando Info.js</span>
-  `;
-  document.body.appendChild(alert);
-  window.api.gerarInfo();
-  setTimeout(() => {
-    alert.classList.add("hide"); // ← animação de saída
-  }, 1000);
-}
 async function apagarThumbs() {
   const texto =
     "Tens a certeza? <br> As thumbnails vão ser apagadas e regeneradas na próxima vez.";
@@ -161,12 +142,11 @@ function loading() {
           resolve();
         }, 100);
       }
-    }, 30);
+    }, 20);
   });
 }
 // ─── Info da pasta ──────────────────────────────────────────────────────────
-async function criarInfoPasta() {
-  const info = await window.api.infoPasta();
+async function criarInfoPasta(info) {
   if (!info) return;
 
   document.getElementById("nome").innerHTML = /* html */ `
@@ -174,7 +154,7 @@ async function criarInfoPasta() {
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M16.52 7h-10.52a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h10.52a1 1 0 0 0 .78 -.375l3.7 -4.625l-3.7 -4.625a1 1 0 0 0 -.78 -.375" />
     </svg>
-    <span>Cominho: ${info.name}</span>
+    <span>Caminho: ${info.name}</span>
   `;
 
   document.getElementById("tamanho").innerHTML = /* html */ `
@@ -246,9 +226,8 @@ async function init() {
   }
 }
 async function arrancar(caminho) {
-  document.getElementById("btn-banners").disabled = false;
-  document.getElementById("btn-pedidos").disabled = false;
-  document.getElementById("btn-info-json").disabled = false;
+  const info = await window.api.infoPasta();
+  await criarInfoPasta(info);
   document.getElementById("setup").style.display = "none";
   document.getElementById("loading-msg").textContent =
     "A carregar a biblioteca...";
@@ -260,6 +239,9 @@ async function arrancar(caminho) {
       "A iniciar o servidor...",
     );
   }
+  document.getElementById("btn-banners").disabled = false;
+  document.getElementById("btn-pedidos").disabled = false;
+  document.getElementById("btn-info-json").disabled = false;
   document.getElementById("btn-reset").disabled = false;
   document.getElementById("loading-msg").textContent = "Ohayo, Senpai!";
   await window.api.iniciarServidor();
@@ -345,25 +327,6 @@ window.api.alertGeral((info) => {
     alert.classList.add("hide");
   }, 2000);
 });
-window.api.onAlertInfo((i) => {
-  const alert = document.createElement("div");
-  alert.classList.add("alert", "alert-info-json");
-  alert.innerHTML = /* html */ `
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-info">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M11 14h1v4h1" />
-	<path d="M12 11h.01" />
-</svg>
-<span>${i}</span>
-  `;
-
-  document.body.appendChild(alert);
-  setTimeout(() => {
-    alert.classList.add("hide");
-  }, 1500);
-});
 window.api.onTotalVideos((val) => {
   _totalVideos = val.trim();
 });
@@ -388,6 +351,5 @@ window.api.onProgresso(({ atual, f }) => {
   `;
 });
 // ─── Boot ───────────────────────────────────────────────────────────────────
-criarInfoPasta();
 carregarTema();
 init();
