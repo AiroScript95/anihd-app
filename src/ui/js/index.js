@@ -145,6 +145,11 @@ function loading() {
     }, 20);
   });
 }
+function setProgresso(pct) {
+  const fill = document.getElementById("fill");
+  fill.style.transition = "stroke-dashoffset 0.3s ease";
+  fill.style.strokeDashoffset = 56.5 - (pct / 100) * 56.5;
+}
 // ─── Info da pasta ──────────────────────────────────────────────────────────
 async function criarInfoPasta(info) {
   if (!info) return;
@@ -333,12 +338,12 @@ window.api.onTotalVideos((val) => {
 window.api.onTotal((val) => {
   _pendentes = val.trim();
 });
+
+
 window.api.onProgresso(({ atual, f }) => {
+  const pct = ((atual / _totalVideos) * 100).toFixed(0);
   document.getElementById("btn-reset").disabled = true;
-  document.getElementById("total-videos").innerHTML =
-    `${String(_totalVideos).padStart(3, "0")} vídeos ·
-     ${String(_pendentes).padStart(3, "0")} pendentes ·
-      <strong>${String(atual).padStart(3, "0")}/${String(_pendentes).padStart(3, "0")}</strong>`;
+  document.getElementById("percentagem").innerText = `${pct}%`;
   document.getElementById("progresso-atual").innerHTML = /* html */ `
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -349,6 +354,7 @@ window.api.onProgresso(({ atual, f }) => {
       </svg>
       <span>${f.replace(/\.webp$/, "")}</span>
   `;
+  setProgresso(pct);
 });
 // ─── Boot ───────────────────────────────────────────────────────────────────
 carregarTema();
